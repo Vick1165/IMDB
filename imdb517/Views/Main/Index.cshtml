@@ -1,0 +1,49 @@
+﻿@model IEnumerable<imdb517.viewAllMovies_Result>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+
+
+        div.imagetiles div.col-lg-3.col-md-3.col-sm-3.col-xs-6 {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    @foreach (var item in Model)
+    {
+
+    
+        <div style="display: inline-flex;">
+            <a href="xiaomi_black_shark_2-9639.php">
+                <img src="https://cdn2.gsmarena.com/vv/bigpic/xiaomi-black-shark-2.jpg"
+                     title=@Html.DisplayFor(modelItem => item.MoviesName) /><h3>@Html.DisplayFor(modelItem => item.MoviesName)</h3>
+            </a>
+            
+        </div>
+
+
+    
+
+
+
+
+
+
+
+
+
+            }
+
+
+
+    </body>
+</html>

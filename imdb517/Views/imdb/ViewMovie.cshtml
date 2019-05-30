@@ -1,0 +1,86 @@
+﻿@model IEnumerable<imdb517.moviedetails_Result>
+
+
+<head>
+    <style>
+        img {
+            float: left;
+        }
+    </style>
+</head>
+
+
+@foreach (var item in Model)
+{
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a href="@Url.Action("ViewMovie", "imdb", new { id = item.id })">
+                    <img style="width:25%;height:40%;margin-left:15px;margin-top: 57px" class="img-responsive center-block" src=@item.imageUrl>
+                </a>
+            </div>
+            <div class="col-lg-offset-7 " >
+                <div style="float:left;margin-top:100px">
+                    <h2 style="text-align:center;text-transform:uppercase"> <strong> @Html.DisplayFor(modelItem => item.MoviesName)</strong></h2>
+
+                    <ul>
+
+
+
+
+                        <li>
+                            <label>Year of Release : </label>
+                            @Html.DisplayFor(modelItem => item.YearOfRelease)
+
+                        </li>
+                        <li>
+                            <label>Producer : </label>
+                            <a href="@Url.Action("AllMoviesByProducers", "imdb", new { id = item.ProducersName })">@Html.DisplayFor(modelItem => item.ProducersName)</a>
+                            
+                        </li>
+                        <li>
+                            <label>Actors : </label>
+                            <a href="@Url.Action("AllMoviesByActor", "imdb", new { id = item.Actor1 })">@Html.DisplayFor(modelItem => item.Actor1)</a>
+                            
+                        </li>
+                        <li>
+                            <label>Plot  : </label>
+                            @Html.DisplayFor(modelItem => item.plot)
+                        </li>
+
+                        <li>
+                            @Html.ActionLink("Edit", "EditMovies", new { id = item.movieid }, new { @class = "btn btn-info" }) |
+
+                            @Html.ActionLink("Delete", "Delete", new { id = item.movieid }, new { @class = "btn btn-danger" })
+                        </li>
+                    </ul>
+                </div>
+                
+               
+            </div>
+            
+        </div>
+    </div>
+
+
+   
+
+
+
+    
+
+
+
+}
+
+
+
+
+
+
+
+
+
+

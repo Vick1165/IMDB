@@ -1,0 +1,58 @@
+﻿@model imdb517.Movies
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Movies</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MoviesName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MoviesName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YearOfRelease)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YearOfRelease)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Plot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Plot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.imageUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.imageUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Producers.ProducersName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Producers.ProducersName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

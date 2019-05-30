@@ -1,0 +1,39 @@
+﻿@model IEnumerable<imdb517.viewMoviebyActor_Result>
+
+<h3>@TempData["ActorName"]</h3>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MoviesName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearOfRelease)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.plot)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProducersName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MoviesName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.YearOfRelease)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.plot)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProducersName)
+        </td>
+       
+    </tr>
+}
+
+</table>

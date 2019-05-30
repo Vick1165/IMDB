@@ -1,0 +1,52 @@
+﻿@model IEnumerable<imdb517.viewAllProducers_Result>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+<h3 style="text-align:center">All Producers</h3> <span> 
+    <input type="button" class="btn btn-primary pull-right" value="Add Producer" onclick="location.href='@Url.Action("addProcuders", "imdb")'" />
+    </span>
+
+
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProducersName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DOB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Bio)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProducersName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bio)
+            </td>
+         
+        </tr>
+    }
+
+</table>
+
+

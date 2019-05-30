@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="imdb521Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="actorMovie">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="movieid" Type="int" />
+    <Property Name="actorid" Type="int" />
+  </EntityType>
+  <EntityType Name="Movies">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MoviesName" Type="varchar(max)" Nullable="false" />
+    <Property Name="YearOfRelease" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Plot" Type="varchar(max)" Nullable="false" />
+    <Property Name="producerid" Type="int" Nullable="false" />
+    <Property Name="imageUrl" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Producers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProducersName" Type="varchar(max)" />
+    <Property Name="Sex" Type="varchar" MaxLength="20" />
+    <Property Name="DOB" Type="varchar" MaxLength="20" />
+    <Property Name="Bio" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="updatedActors">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Actor1" Type="varchar" MaxLength="20" />
+    <Property Name="Sex" Type="varchar" MaxLength="20" />
+    <Property Name="DOB" Type="varchar" MaxLength="20" />
+    <Property Name="Bio" Type="varchar(max)" />
+  </EntityType>
+  <Association Name="FK__Movies__producer__164452B1">
+    <End Role="Producers" Type="Self.Producers" Multiplicity="1" />
+    <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Movies">
+        <PropertyRef Name="producerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="actorMovies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ActorName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="addactorandmovie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="movieid" Type="int" Mode="In" />
+    <Parameter Name="actorid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="addActors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Actor1" Type="varchar" Mode="In" />
+    <Parameter Name="Sex" Type="varchar" Mode="In" />
+    <Parameter Name="DOB" Type="varchar" Mode="In" />
+    <Parameter Name="Bio" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="AddMovies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MoviesName" Type="varchar(max)" Mode="In" />
+    <Parameter Name="YearOfRelease" Type="date" Mode="In" />
+    <Parameter Name="Plot" Type="varchar(max)" Mode="In" />
+    <Parameter Name="producerid" Type="int" Mode="In" />
+    <Parameter Name="image" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="addnewmovies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MoviesName" Type="varchar(max)" Mode="In" />
+    <Parameter Name="YearOfRelease" Type="varchar" Mode="In" />
+    <Parameter Name="Plot" Type="varchar(max)" Mode="In" />
+    <Parameter Name="producerid" Type="int" Mode="In" />
+    <Parameter Name="imageUrl" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="addProducers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProducersName" Type="varchar" Mode="In" />
+    <Parameter Name="Sex" Type="varchar" Mode="In" />
+    <Parameter Name="DOB" Type="varchar" Mode="In" />
+    <Parameter Name="Bio" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="allmovieswithImage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="deleteMovies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="editActorInMovie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="actorid" Type="int" Mode="In" />
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="editMovies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+    <Parameter Name="MoviesName" Type="varchar(max)" Mode="In" />
+    <Parameter Name="YearOfRelease" Type="varchar" Mode="In" />
+    <Parameter Name="Plot" Type="varchar(max)" Mode="In" />
+    <Parameter Name="ProducersName" Type="int" Mode="In" />
+    <Parameter Name="image" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="moviedetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="prefilledEdit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ProdName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="producerMovies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ProducerNames" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="totalActors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="viewAllActors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="viewAllMovies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="viewAllProducers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="viewMoviebyActor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ActorName" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="viewMoviebyProducer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProducerName" Type="varchar(max)" Mode="In" />
+  </Function>
+  <EntityContainer Name="imdb521ModelStoreContainer">
+    <EntitySet Name="actorMovie" EntityType="Self.actorMovie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Producers" EntityType="Self.Producers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="updatedActors" EntityType="Self.updatedActors" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Movies__producer__164452B1" Association="Self.FK__Movies__producer__164452B1">
+      <End Role="Producers" EntitySet="Producers" />
+      <End Role="Movies" EntitySet="Movies" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="imdb521ModelStoreContainer" CdmEntityContainer="imdb521Entities8">
+    <EntitySetMapping Name="actorMovie">
+      <EntityTypeMapping TypeName="imdb521Model.actorMovie">
+        <MappingFragment StoreEntitySet="actorMovie">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="movieid" ColumnName="movieid" />
+          <ScalarProperty Name="actorid" ColumnName="actorid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Movies">
+      <EntityTypeMapping TypeName="imdb521Model.Movies">
+        <MappingFragment StoreEntitySet="Movies">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
+          <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
+          <ScalarProperty Name="Plot" ColumnName="Plot" />
+          <ScalarProperty Name="producerid" ColumnName="producerid" />
+          <ScalarProperty Name="imageUrl" ColumnName="imageUrl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Producers">
+      <EntityTypeMapping TypeName="imdb521Model.Producers">
+        <MappingFragment StoreEntitySet="Producers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Bio" ColumnName="Bio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="updatedActors">
+      <EntityTypeMapping TypeName="imdb521Model.updatedActors">
+        <MappingFragment StoreEntitySet="updatedActors">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Actor1" ColumnName="Actor1" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Bio" ColumnName="Bio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="actorMovies" FunctionName="imdb521Model.Store.actorMovies">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="imdb521Model.actorMovies_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
+          <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
+          <ScalarProperty Name="plot" ColumnName="plot" />
+          <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ActorName" FunctionName="imdb521Model.Store.ActorName" />
+    <FunctionImportMapping FunctionImportName="addactorandmovie" FunctionName="imdb521Model.Store.addactorandmovie" />
+    <FunctionImportMapping FunctionImportName="addActors" FunctionName="imdb521Model.Store.addActors" />
+    <FunctionImportMapping FunctionImportName="AddMovies" FunctionName="imdb521Model.Store.AddMovies" />
+    <FunctionImportMapping FunctionImportName="addnewmovies" FunctionName="imdb521Model.Store.addnewmovies" />
+    <FunctionImportMapping FunctionImportName="addProducers" FunctionName="imdb521Model.Store.addProducers" />
+    <FunctionImportMapping FunctionImportName="allmovieswithImage" FunctionName="imdb521Model.Store.allmovieswithImage">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="imdb521Model.allmovieswithImage_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="mov" ColumnName="mov" />
+          <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
+          <ScalarProperty Name="imageUrl" ColumnName="imageUrl" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="deleteMovies" FunctionName="imdb521Model.Store.deleteMovies" />
+    <FunctionImportMapping FunctionImportName="editActorInMovie" FunctionName="imdb521Model.Store.editActorInMovie" />
+    <FunctionImportMapping FunctionImportName="editMovies" FunctionName="imdb521Model.Store.editMovies" />
+    <FunctionImportMapping FunctionImportName="moviedetails" FunctionName="imdb521Model.Store.moviedetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="imdb521Model.moviedetails_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="movieid" ColumnName="movieid" />
+          <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
+          <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
+          <ScalarProperty Name="plot" ColumnName="plot" />
+          <ScalarProperty Name="imageUrl" ColumnName="imageUrl" />
+          <ScalarProperty Name="Actor1" ColumnName="Actor1" />
+          <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="prefilledEdit" FunctionName="imdb521Model.Store.prefilledEdit">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="imdb521Model.prefilledEdit_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
+          <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
+          <ScalarProperty Name="Plot" ColumnName="Plot" />
+          <ScalarProperty Name="producerid" ColumnName="producerid" />
+          <ScalarProperty Name="imageUrl" ColumnName="imageUrl" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ProdName" FunctionName="imdb521Model.Store.ProdName" />
+    <FunctionImportMapping FunctionImportName="producerMovies" FunctionName="imdb521Model.Store.producerMovies">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="imdb521Model.producerMovies_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
+          <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
+          <ScalarProperty Name="Plot" ColumnName="Plot" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ProducerNames" FunctionName="imdb521Model.Store.ProducerNames">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="imdb521Model.ProducerNames_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="totalActors" FunctionName="imdb521Model.Store.totalActors" />
+    <FunctionImportMapping FunctionImportName="viewAllActors" FunctionName="imdb521Model.Store.viewAllActors">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="imdb521Model.viewAllActors_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Actor1" ColumnName="Actor1" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Bio" ColumnName="Bio" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="viewAllMovies" FunctionName="imdb521Model.Store.viewAllMovies">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="imdb521Model.viewAllMovies_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="movieid" ColumnName="movieid" />
+          <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
+          <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
+          <ScalarProperty Name="plot" ColumnName="plot" />
+          <ScalarProperty Name="Actor1" ColumnName="Actor1" />
+          <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="viewAllProducers" FunctionName="imdb521Model.Store.viewAllProducers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="imdb521Model.viewAllProducers_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Bio" ColumnName="Bio" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="viewMoviebyActor" FunctionName="imdb521Model.Store.viewMoviebyActor">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="imdb521Model.viewMoviebyActor_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
+          <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
+          <ScalarProperty Name="plot" ColumnName="plot" />
+          <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="viewMoviebyProducer" FunctionName="imdb521Model.Store.viewMoviebyProducer">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="imdb521Model.viewMoviebyProducer_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
+          <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
+          <ScalarProperty Name="plot" ColumnName="plot" />
+          <ScalarProperty Name="Actor1" ColumnName="Actor1" />
+          <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

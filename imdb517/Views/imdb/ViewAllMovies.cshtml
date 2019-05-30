@@ -1,0 +1,50 @@
+﻿@model IEnumerable<imdb517.viewAllMovies_Result>
+
+<h3 style="color:#286090;text-align">@TempData["Message"]</h3>
+<h3 style="text-align:center ; margin:25px">All Movies</h3>
+<table class="table table-bordered">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.MoviesName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearOfRelease)
+        </th>
+     
+        <th>
+            @Html.DisplayNameFor(model => model.Actor1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProducersName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.MoviesName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearOfRelease)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Actor1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProducersName)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "ViewMovie", new { id = item.movieid }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Edit", "EditMovies", new { id = item.movieid }, new { @class = "btn btn-info" }) |
+
+                @Html.ActionLink("Delete", "Delete", new { id = item.movieid }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>

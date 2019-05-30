@@ -1,0 +1,99 @@
+﻿@model imdb517.prefilledEdit_Result
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<head>
+
+    <style>
+        .alert {
+            display: none;
+        }
+    </style>
+</head>
+<div>
+
+
+
+
+
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+
+        <div class="alert alert-success">
+            <strong> @Model.MoviesName</strong>  has been Deleted successfully.
+        </div>
+
+        <h3>Are you sure you want to delete <strong> @Model.MoviesName</strong> ?</h3>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+
+                    <img class="center-block" src=@Model.imageUrl>
+
+                    <hr />
+                    <dl class="dl-horizontal">
+
+
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Actorid)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.MoviesName)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.MoviesName)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.YearOfRelease)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.YearOfRelease)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Plot)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Plot)
+                        </dd>
+
+
+                        <dd>
+                            <input style="margin:5px" type="submit"  id="delete"value="Delete" class="btn btn-danger" />
+                        </dd>
+
+
+
+
+
+                    </dl>
+                </div>
+
+
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#delete').click(function () {
+                    $('.alert').show();
+
+                })
+            });
+        </script>
+
+    }
+</div>
+

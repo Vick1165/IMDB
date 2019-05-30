@@ -1,0 +1,576 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="imdb521Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="actorMovie">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="movieid" Type="int" />
+          <Property Name="actorid" Type="int" />
+        </EntityType>
+        <EntityType Name="Movies">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MoviesName" Type="varchar(max)" Nullable="false" />
+          <Property Name="YearOfRelease" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Plot" Type="varchar(max)" Nullable="false" />
+          <Property Name="producerid" Type="int" Nullable="false" />
+          <Property Name="imageUrl" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Producers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProducersName" Type="varchar(max)" />
+          <Property Name="Sex" Type="varchar" MaxLength="20" />
+          <Property Name="DOB" Type="varchar" MaxLength="20" />
+          <Property Name="Bio" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="updatedActors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Actor1" Type="varchar" MaxLength="20" />
+          <Property Name="Sex" Type="varchar" MaxLength="20" />
+          <Property Name="DOB" Type="varchar" MaxLength="20" />
+          <Property Name="Bio" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK__Movies__producer__164452B1">
+          <End Role="Producers" Type="Self.Producers" Multiplicity="1" />
+          <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Movies">
+              <PropertyRef Name="producerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="actorMovies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ActorName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="addactorandmovie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="movieid" Type="int" Mode="In" />
+          <Parameter Name="actorid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="addActors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Actor1" Type="varchar" Mode="In" />
+          <Parameter Name="Sex" Type="varchar" Mode="In" />
+          <Parameter Name="DOB" Type="varchar" Mode="In" />
+          <Parameter Name="Bio" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="AddMovies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MoviesName" Type="varchar(max)" Mode="In" />
+          <Parameter Name="YearOfRelease" Type="date" Mode="In" />
+          <Parameter Name="Plot" Type="varchar(max)" Mode="In" />
+          <Parameter Name="producerid" Type="int" Mode="In" />
+          <Parameter Name="image" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="addnewmovies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MoviesName" Type="varchar(max)" Mode="In" />
+          <Parameter Name="YearOfRelease" Type="varchar" Mode="In" />
+          <Parameter Name="Plot" Type="varchar(max)" Mode="In" />
+          <Parameter Name="producerid" Type="int" Mode="In" />
+          <Parameter Name="imageUrl" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="addProducers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProducersName" Type="varchar" Mode="In" />
+          <Parameter Name="Sex" Type="varchar" Mode="In" />
+          <Parameter Name="DOB" Type="varchar" Mode="In" />
+          <Parameter Name="Bio" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="allmovieswithImage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="deleteMovies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="editActorInMovie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="actorid" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="editMovies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="MoviesName" Type="varchar(max)" Mode="In" />
+          <Parameter Name="YearOfRelease" Type="varchar" Mode="In" />
+          <Parameter Name="Plot" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ProducersName" Type="int" Mode="In" />
+          <Parameter Name="image" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="moviedetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="prefilledEdit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ProdName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="producerMovies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ProducerNames" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="totalActors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="viewAllActors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="viewAllMovies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="viewAllProducers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="viewMoviebyActor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ActorName" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="viewMoviebyProducer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProducerName" Type="varchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="imdb521ModelStoreContainer">
+          <EntitySet Name="actorMovie" EntityType="Self.actorMovie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producers" EntityType="Self.Producers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="updatedActors" EntityType="Self.updatedActors" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Movies__producer__164452B1" Association="Self.FK__Movies__producer__164452B1">
+            <End Role="Producers" EntitySet="Producers" />
+            <End Role="Movies" EntitySet="Movies" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="imdb521Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="actorMovie">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="movieid" Type="Int32" />
+          <Property Name="actorid" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Movies">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MoviesName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="YearOfRelease" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Plot" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="producerid" Type="Int32" Nullable="false" />
+          <Property Name="imageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Producers" Relationship="Self.FK__Movies__producer__164452B1" FromRole="Movies" ToRole="Producers" />
+        </EntityType>
+        <EntityType Name="Producers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProducersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Movies" Relationship="Self.FK__Movies__producer__164452B1" FromRole="Producers" ToRole="Movies" />
+        </EntityType>
+        <EntityType Name="updatedActors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Actor1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__Movies__producer__164452B1">
+          <End Role="Producers" Type="Self.Producers" Multiplicity="1" />
+          <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Movies">
+              <PropertyRef Name="producerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="imdb521Entities8" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="actorMovie" EntityType="Self.actorMovie" />
+          <EntitySet Name="Movies" EntityType="Self.Movies" />
+          <EntitySet Name="Producers" EntityType="Self.Producers" />
+          <EntitySet Name="updatedActors" EntityType="Self.updatedActors" />
+          <AssociationSet Name="FK__Movies__producer__164452B1" Association="Self.FK__Movies__producer__164452B1">
+            <End Role="Producers" EntitySet="Producers" />
+            <End Role="Movies" EntitySet="Movies" />
+          </AssociationSet>
+          <FunctionImport Name="actorMovies" ReturnType="Collection(imdb521Model.actorMovies_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ActorName" ReturnType="Collection(String)">
+            <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="addactorandmovie">
+            <Parameter Name="movieid" Mode="In" Type="Int32" />
+            <Parameter Name="actorid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="addActors">
+            <Parameter Name="Actor1" Mode="In" Type="String" />
+            <Parameter Name="Sex" Mode="In" Type="String" />
+            <Parameter Name="DOB" Mode="In" Type="String" />
+            <Parameter Name="Bio" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddMovies">
+            <Parameter Name="MoviesName" Mode="In" Type="String" />
+            <Parameter Name="YearOfRelease" Mode="In" Type="DateTime" />
+            <Parameter Name="Plot" Mode="In" Type="String" />
+            <Parameter Name="producerid" Mode="In" Type="Int32" />
+            <Parameter Name="image" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="addnewmovies">
+            <Parameter Name="MoviesName" Mode="In" Type="String" />
+            <Parameter Name="YearOfRelease" Mode="In" Type="String" />
+            <Parameter Name="Plot" Mode="In" Type="String" />
+            <Parameter Name="producerid" Mode="In" Type="Int32" />
+            <Parameter Name="imageUrl" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="addProducers">
+            <Parameter Name="ProducersName" Mode="In" Type="String" />
+            <Parameter Name="Sex" Mode="In" Type="String" />
+            <Parameter Name="DOB" Mode="In" Type="String" />
+            <Parameter Name="Bio" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="allmovieswithImage" ReturnType="Collection(imdb521Model.allmovieswithImage_Result)" />
+          <FunctionImport Name="deleteMovies">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="editActorInMovie">
+            <Parameter Name="actorid" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="editMovies">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="MoviesName" Mode="In" Type="String" />
+            <Parameter Name="YearOfRelease" Mode="In" Type="String" />
+            <Parameter Name="Plot" Mode="In" Type="String" />
+            <Parameter Name="ProducersName" Mode="In" Type="Int32" />
+            <Parameter Name="image" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="moviedetails" ReturnType="Collection(imdb521Model.moviedetails_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="prefilledEdit" ReturnType="Collection(imdb521Model.prefilledEdit_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ProdName" ReturnType="Collection(String)">
+            <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="producerMovies" ReturnType="Collection(imdb521Model.producerMovies_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ProducerNames" ReturnType="Collection(imdb521Model.ProducerNames_Result)" />
+          <FunctionImport Name="totalActors" ReturnType="Collection(Int32)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="viewAllActors" ReturnType="Collection(imdb521Model.viewAllActors_Result)" />
+          <FunctionImport Name="viewAllMovies" ReturnType="Collection(imdb521Model.viewAllMovies_Result)" />
+          <FunctionImport Name="viewAllProducers" ReturnType="Collection(imdb521Model.viewAllProducers_Result)" />
+          <FunctionImport Name="viewMoviebyActor" ReturnType="Collection(imdb521Model.viewMoviebyActor_Result)">
+            <Parameter Name="ActorName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="viewMoviebyProducer" ReturnType="Collection(imdb521Model.viewMoviebyProducer_Result)">
+            <Parameter Name="ProducerName" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="actorMovies_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="MoviesName" Nullable="false" />
+          <Property Type="String" Name="YearOfRelease" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="plot" Nullable="false" />
+          <Property Type="String" Name="ProducersName" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="allmovieswithImage_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="mov" Nullable="false" />
+          <Property Type="String" Name="MoviesName" Nullable="false" />
+          <Property Type="String" Name="imageUrl" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="moviedetails_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="movieid" Nullable="false" />
+          <Property Type="String" Name="MoviesName" Nullable="false" />
+          <Property Type="String" Name="YearOfRelease" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="plot" Nullable="false" />
+          <Property Type="String" Name="imageUrl" Nullable="true" />
+          <Property Type="String" Name="Actor1" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ProducersName" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="prefilledEdit_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="MoviesName" Nullable="false" />
+          <Property Type="String" Name="YearOfRelease" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Plot" Nullable="false" />
+          <Property Type="Int32" Name="producerid" Nullable="false" />
+          <Property Type="String" Name="imageUrl" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="producerMovies_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="MoviesName" Nullable="false" />
+          <Property Type="String" Name="YearOfRelease" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Plot" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ProducerNames_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="ProducersName" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="viewAllActors_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Actor1" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Sex" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="DOB" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Bio" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="viewAllMovies_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="movieid" Nullable="false" />
+          <Property Type="String" Name="MoviesName" Nullable="false" />
+          <Property Type="String" Name="YearOfRelease" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="plot" Nullable="false" />
+          <Property Type="String" Name="Actor1" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ProducersName" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="viewAllProducers_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="ProducersName" Nullable="true" />
+          <Property Type="String" Name="Sex" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="DOB" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Bio" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="viewMoviebyActor_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="MoviesName" Nullable="false" />
+          <Property Type="String" Name="YearOfRelease" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="plot" Nullable="false" />
+          <Property Type="String" Name="ProducersName" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="viewMoviebyProducer_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="MoviesName" Nullable="false" />
+          <Property Type="String" Name="YearOfRelease" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="plot" Nullable="false" />
+          <Property Type="String" Name="Actor1" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ProducersName" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="imdb521ModelStoreContainer" CdmEntityContainer="imdb521Entities8">
+          <EntitySetMapping Name="actorMovie">
+            <EntityTypeMapping TypeName="imdb521Model.actorMovie">
+              <MappingFragment StoreEntitySet="actorMovie">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="movieid" ColumnName="movieid" />
+                <ScalarProperty Name="actorid" ColumnName="actorid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movies">
+            <EntityTypeMapping TypeName="imdb521Model.Movies">
+              <MappingFragment StoreEntitySet="Movies">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
+                <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
+                <ScalarProperty Name="Plot" ColumnName="Plot" />
+                <ScalarProperty Name="producerid" ColumnName="producerid" />
+                <ScalarProperty Name="imageUrl" ColumnName="imageUrl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producers">
+            <EntityTypeMapping TypeName="imdb521Model.Producers">
+              <MappingFragment StoreEntitySet="Producers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Bio" ColumnName="Bio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="updatedActors">
+            <EntityTypeMapping TypeName="imdb521Model.updatedActors">
+              <MappingFragment StoreEntitySet="updatedActors">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Actor1" ColumnName="Actor1" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Bio" ColumnName="Bio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="actorMovies" FunctionName="imdb521Model.Store.actorMovies">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="imdb521Model.actorMovies_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
+                <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
+                <ScalarProperty Name="plot" ColumnName="plot" />
+                <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ActorName" FunctionName="imdb521Model.Store.ActorName" />
+          <FunctionImportMapping FunctionImportName="addactorandmovie" FunctionName="imdb521Model.Store.addactorandmovie" />
+          <FunctionImportMapping FunctionImportName="addActors" FunctionName="imdb521Model.Store.addActors" />
+          <FunctionImportMapping FunctionImportName="AddMovies" FunctionName="imdb521Model.Store.AddMovies" />
+          <FunctionImportMapping FunctionImportName="addnewmovies" FunctionName="imdb521Model.Store.addnewmovies" />
+          <FunctionImportMapping FunctionImportName="addProducers" FunctionName="imdb521Model.Store.addProducers" />
+          <FunctionImportMapping FunctionImportName="allmovieswithImage" FunctionName="imdb521Model.Store.allmovieswithImage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="imdb521Model.allmovieswithImage_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="mov" ColumnName="mov" />
+                <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
+                <ScalarProperty Name="imageUrl" ColumnName="imageUrl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="deleteMovies" FunctionName="imdb521Model.Store.deleteMovies" />
+          <FunctionImportMapping FunctionImportName="editActorInMovie" FunctionName="imdb521Model.Store.editActorInMovie" />
+          <FunctionImportMapping FunctionImportName="editMovies" FunctionName="imdb521Model.Store.editMovies" />
+          <FunctionImportMapping FunctionImportName="moviedetails" FunctionName="imdb521Model.Store.moviedetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="imdb521Model.moviedetails_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="movieid" ColumnName="movieid" />
+                <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
+                <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
+                <ScalarProperty Name="plot" ColumnName="plot" />
+                <ScalarProperty Name="imageUrl" ColumnName="imageUrl" />
+                <ScalarProperty Name="Actor1" ColumnName="Actor1" />
+                <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="prefilledEdit" FunctionName="imdb521Model.Store.prefilledEdit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="imdb521Model.prefilledEdit_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
+                <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
+                <ScalarProperty Name="Plot" ColumnName="Plot" />
+                <ScalarProperty Name="producerid" ColumnName="producerid" />
+                <ScalarProperty Name="imageUrl" ColumnName="imageUrl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProdName" FunctionName="imdb521Model.Store.ProdName" />
+          <FunctionImportMapping FunctionImportName="producerMovies" FunctionName="imdb521Model.Store.producerMovies">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="imdb521Model.producerMovies_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
+                <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
+                <ScalarProperty Name="Plot" ColumnName="Plot" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProducerNames" FunctionName="imdb521Model.Store.ProducerNames">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="imdb521Model.ProducerNames_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="totalActors" FunctionName="imdb521Model.Store.totalActors" />
+          <FunctionImportMapping FunctionImportName="viewAllActors" FunctionName="imdb521Model.Store.viewAllActors">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="imdb521Model.viewAllActors_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Actor1" ColumnName="Actor1" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Bio" ColumnName="Bio" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="viewAllMovies" FunctionName="imdb521Model.Store.viewAllMovies">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="imdb521Model.viewAllMovies_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="movieid" ColumnName="movieid" />
+                <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
+                <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
+                <ScalarProperty Name="plot" ColumnName="plot" />
+                <ScalarProperty Name="Actor1" ColumnName="Actor1" />
+                <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="viewAllProducers" FunctionName="imdb521Model.Store.viewAllProducers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="imdb521Model.viewAllProducers_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Bio" ColumnName="Bio" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="viewMoviebyActor" FunctionName="imdb521Model.Store.viewMoviebyActor">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="imdb521Model.viewMoviebyActor_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
+                <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
+                <ScalarProperty Name="plot" ColumnName="plot" />
+                <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="viewMoviebyProducer" FunctionName="imdb521Model.Store.viewMoviebyProducer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="imdb521Model.viewMoviebyProducer_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
+                <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
+                <ScalarProperty Name="plot" ColumnName="plot" />
+                <ScalarProperty Name="Actor1" ColumnName="Actor1" />
+                <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<imdb517.allmovieswithImage_Result>
+
+
+
+
+@foreach (var c in Model)
+{
+    <div style=" display: inline-block">
+        <div style=" display: inline-block">
+
+            <a href="@Url.Action("ViewMovie", "imdb", new { id = c.mov })">
+                <img width="160" height="260" style="padding:20px 10px" src=@c.imageUrl>
+
+                <span style="display: block;text-align: center;width: 100%;">
+                    <strong style="text-transform:uppercase">
+                        @Html.DisplayFor(m => c.MoviesName)
+                    </strong>
+                </span>
+            </a>
+
+
+
+
+        </div>
+
+    </div>
+
+
+
+}
+
