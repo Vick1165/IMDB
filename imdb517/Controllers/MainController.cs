@@ -9,7 +9,7 @@ namespace imdb517.Controllers
     public class MainController : Controller
     {
         // GET: Main
-        imdb521Entities8 db = new imdb521Entities8();
+        imdbfinalEntities db = new imdbfinalEntities();
         public ActionResult Index()
         {
             List<viewAllMovies_Result> viewAllMovies_Results = db.viewAllMovies().ToList();

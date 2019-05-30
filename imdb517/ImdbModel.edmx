@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="imdb521Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="imdbfinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="actorMovie">
           <Key>
             <PropertyRef Name="id" />
@@ -44,7 +44,31 @@
           <Property Name="DOB" Type="varchar" MaxLength="20" />
           <Property Name="Bio" Type="varchar(max)" />
         </EntityType>
-        <Association Name="FK__Movies__producer__164452B1">
+        <Association Name="FK__actorMovi__actor__164452B1">
+          <End Role="updatedActors" Type="Self.updatedActors" Multiplicity="0..1" />
+          <End Role="actorMovie" Type="Self.actorMovie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="updatedActors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="actorMovie">
+              <PropertyRef Name="actorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__actorMovi__movie__173876EA">
+          <End Role="Movies" Type="Self.Movies" Multiplicity="0..1" />
+          <End Role="actorMovie" Type="Self.actorMovie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movies">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="actorMovie">
+              <PropertyRef Name="movieid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Movies__producer__182C9B23">
           <End Role="Producers" Type="Self.Producers" Multiplicity="1" />
           <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
           <ReferentialConstraint>
@@ -133,12 +157,20 @@
         <Function Name="viewMoviebyProducer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ProducerName" Type="varchar(max)" Mode="In" />
         </Function>
-        <EntityContainer Name="imdb521ModelStoreContainer">
+        <EntityContainer Name="imdbfinalModelStoreContainer">
           <EntitySet Name="actorMovie" EntityType="Self.actorMovie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producers" EntityType="Self.Producers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="updatedActors" EntityType="Self.updatedActors" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Movies__producer__164452B1" Association="Self.FK__Movies__producer__164452B1">
+          <AssociationSet Name="FK__actorMovi__actor__164452B1" Association="Self.FK__actorMovi__actor__164452B1">
+            <End Role="updatedActors" EntitySet="updatedActors" />
+            <End Role="actorMovie" EntitySet="actorMovie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__actorMovi__movie__173876EA" Association="Self.FK__actorMovi__movie__173876EA">
+            <End Role="Movies" EntitySet="Movies" />
+            <End Role="actorMovie" EntitySet="actorMovie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Movies__producer__182C9B23" Association="Self.FK__Movies__producer__182C9B23">
             <End Role="Producers" EntitySet="Producers" />
             <End Role="Movies" EntitySet="Movies" />
           </AssociationSet>
@@ -147,7 +179,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="imdb521Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="imdbfinalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="actorMovie">
           <Key>
             <PropertyRef Name="id" />
@@ -155,6 +187,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="movieid" Type="Int32" />
           <Property Name="actorid" Type="Int32" />
+          <NavigationProperty Name="updatedActors" Relationship="Self.FK__actorMovi__actor__164452B1" FromRole="actorMovie" ToRole="updatedActors" />
+          <NavigationProperty Name="Movies" Relationship="Self.FK__actorMovi__movie__173876EA" FromRole="actorMovie" ToRole="Movies" />
         </EntityType>
         <EntityType Name="Movies">
           <Key>
@@ -166,7 +200,8 @@
           <Property Name="Plot" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="producerid" Type="Int32" Nullable="false" />
           <Property Name="imageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Producers" Relationship="Self.FK__Movies__producer__164452B1" FromRole="Movies" ToRole="Producers" />
+          <NavigationProperty Name="actorMovie" Relationship="Self.FK__actorMovi__movie__173876EA" FromRole="Movies" ToRole="actorMovie" />
+          <NavigationProperty Name="Producers" Relationship="Self.FK__Movies__producer__182C9B23" FromRole="Movies" ToRole="Producers" />
         </EntityType>
         <EntityType Name="Producers">
           <Key>
@@ -177,7 +212,7 @@
           <Property Name="Sex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="DOB" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Movies" Relationship="Self.FK__Movies__producer__164452B1" FromRole="Producers" ToRole="Movies" />
+          <NavigationProperty Name="Movies" Relationship="Self.FK__Movies__producer__182C9B23" FromRole="Producers" ToRole="Movies" />
         </EntityType>
         <EntityType Name="updatedActors">
           <Key>
@@ -188,8 +223,33 @@
           <Property Name="Sex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="DOB" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="actorMovie" Relationship="Self.FK__actorMovi__actor__164452B1" FromRole="updatedActors" ToRole="actorMovie" />
         </EntityType>
-        <Association Name="FK__Movies__producer__164452B1">
+        <Association Name="FK__actorMovi__actor__164452B1">
+          <End Role="updatedActors" Type="Self.updatedActors" Multiplicity="0..1" />
+          <End Role="actorMovie" Type="Self.actorMovie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="updatedActors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="actorMovie">
+              <PropertyRef Name="actorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__actorMovi__movie__173876EA">
+          <End Role="Movies" Type="Self.Movies" Multiplicity="0..1" />
+          <End Role="actorMovie" Type="Self.actorMovie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movies">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="actorMovie">
+              <PropertyRef Name="movieid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Movies__producer__182C9B23">
           <End Role="Producers" Type="Self.Producers" Multiplicity="1" />
           <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
           <ReferentialConstraint>
@@ -201,16 +261,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="imdb521Entities8" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="imdbfinalEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="actorMovie" EntityType="Self.actorMovie" />
           <EntitySet Name="Movies" EntityType="Self.Movies" />
           <EntitySet Name="Producers" EntityType="Self.Producers" />
           <EntitySet Name="updatedActors" EntityType="Self.updatedActors" />
-          <AssociationSet Name="FK__Movies__producer__164452B1" Association="Self.FK__Movies__producer__164452B1">
+          <AssociationSet Name="FK__actorMovi__actor__164452B1" Association="Self.FK__actorMovi__actor__164452B1">
+            <End Role="updatedActors" EntitySet="updatedActors" />
+            <End Role="actorMovie" EntitySet="actorMovie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__actorMovi__movie__173876EA" Association="Self.FK__actorMovi__movie__173876EA">
+            <End Role="Movies" EntitySet="Movies" />
+            <End Role="actorMovie" EntitySet="actorMovie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Movies__producer__182C9B23" Association="Self.FK__Movies__producer__182C9B23">
             <End Role="Producers" EntitySet="Producers" />
             <End Role="Movies" EntitySet="Movies" />
           </AssociationSet>
-          <FunctionImport Name="actorMovies" ReturnType="Collection(imdb521Model.actorMovies_Result)">
+          <FunctionImport Name="actorMovies" ReturnType="Collection(imdbfinalModel.actorMovies_Result)">
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ActorName" ReturnType="Collection(String)">
@@ -246,7 +314,7 @@
             <Parameter Name="DOB" Mode="In" Type="String" />
             <Parameter Name="Bio" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="allmovieswithImage" ReturnType="Collection(imdb521Model.allmovieswithImage_Result)" />
+          <FunctionImport Name="allmovieswithImage" ReturnType="Collection(imdbfinalModel.allmovieswithImage_Result)" />
           <FunctionImport Name="deleteMovies">
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -262,29 +330,29 @@
             <Parameter Name="ProducersName" Mode="In" Type="Int32" />
             <Parameter Name="image" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="moviedetails" ReturnType="Collection(imdb521Model.moviedetails_Result)">
+          <FunctionImport Name="moviedetails" ReturnType="Collection(imdbfinalModel.moviedetails_Result)">
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="prefilledEdit" ReturnType="Collection(imdb521Model.prefilledEdit_Result)">
+          <FunctionImport Name="prefilledEdit" ReturnType="Collection(imdbfinalModel.prefilledEdit_Result)">
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ProdName" ReturnType="Collection(String)">
             <Parameter Name="id" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="producerMovies" ReturnType="Collection(imdb521Model.producerMovies_Result)">
+          <FunctionImport Name="producerMovies" ReturnType="Collection(imdbfinalModel.producerMovies_Result)">
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="ProducerNames" ReturnType="Collection(imdb521Model.ProducerNames_Result)" />
+          <FunctionImport Name="ProducerNames" ReturnType="Collection(imdbfinalModel.ProducerNames_Result)" />
           <FunctionImport Name="totalActors" ReturnType="Collection(Int32)">
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="viewAllActors" ReturnType="Collection(imdb521Model.viewAllActors_Result)" />
-          <FunctionImport Name="viewAllMovies" ReturnType="Collection(imdb521Model.viewAllMovies_Result)" />
-          <FunctionImport Name="viewAllProducers" ReturnType="Collection(imdb521Model.viewAllProducers_Result)" />
-          <FunctionImport Name="viewMoviebyActor" ReturnType="Collection(imdb521Model.viewMoviebyActor_Result)">
+          <FunctionImport Name="viewAllActors" ReturnType="Collection(imdbfinalModel.viewAllActors_Result)" />
+          <FunctionImport Name="viewAllMovies" ReturnType="Collection(imdbfinalModel.viewAllMovies_Result)" />
+          <FunctionImport Name="viewAllProducers" ReturnType="Collection(imdbfinalModel.viewAllProducers_Result)" />
+          <FunctionImport Name="viewMoviebyActor" ReturnType="Collection(imdbfinalModel.viewMoviebyActor_Result)">
             <Parameter Name="ActorName" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="viewMoviebyProducer" ReturnType="Collection(imdb521Model.viewMoviebyProducer_Result)">
+          <FunctionImport Name="viewMoviebyProducer" ReturnType="Collection(imdbfinalModel.viewMoviebyProducer_Result)">
             <Parameter Name="ProducerName" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
@@ -372,9 +440,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="imdb521ModelStoreContainer" CdmEntityContainer="imdb521Entities8">
+        <EntityContainerMapping StorageEntityContainer="imdbfinalModelStoreContainer" CdmEntityContainer="imdbfinalEntities">
           <EntitySetMapping Name="actorMovie">
-            <EntityTypeMapping TypeName="imdb521Model.actorMovie">
+            <EntityTypeMapping TypeName="imdbfinalModel.actorMovie">
               <MappingFragment StoreEntitySet="actorMovie">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="movieid" ColumnName="movieid" />
@@ -383,7 +451,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Movies">
-            <EntityTypeMapping TypeName="imdb521Model.Movies">
+            <EntityTypeMapping TypeName="imdbfinalModel.Movies">
               <MappingFragment StoreEntitySet="Movies">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
@@ -395,7 +463,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Producers">
-            <EntityTypeMapping TypeName="imdb521Model.Producers">
+            <EntityTypeMapping TypeName="imdbfinalModel.Producers">
               <MappingFragment StoreEntitySet="Producers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
@@ -406,7 +474,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="updatedActors">
-            <EntityTypeMapping TypeName="imdb521Model.updatedActors">
+            <EntityTypeMapping TypeName="imdbfinalModel.updatedActors">
               <MappingFragment StoreEntitySet="updatedActors">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Actor1" ColumnName="Actor1" />
@@ -416,9 +484,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="actorMovies" FunctionName="imdb521Model.Store.actorMovies">
+          <FunctionImportMapping FunctionImportName="actorMovies" FunctionName="imdbfinalModel.Store.actorMovies">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="imdb521Model.actorMovies_Result">
+              <ComplexTypeMapping TypeName="imdbfinalModel.actorMovies_Result">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
                 <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
@@ -427,15 +495,15 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ActorName" FunctionName="imdb521Model.Store.ActorName" />
-          <FunctionImportMapping FunctionImportName="addactorandmovie" FunctionName="imdb521Model.Store.addactorandmovie" />
-          <FunctionImportMapping FunctionImportName="addActors" FunctionName="imdb521Model.Store.addActors" />
-          <FunctionImportMapping FunctionImportName="AddMovies" FunctionName="imdb521Model.Store.AddMovies" />
-          <FunctionImportMapping FunctionImportName="addnewmovies" FunctionName="imdb521Model.Store.addnewmovies" />
-          <FunctionImportMapping FunctionImportName="addProducers" FunctionName="imdb521Model.Store.addProducers" />
-          <FunctionImportMapping FunctionImportName="allmovieswithImage" FunctionName="imdb521Model.Store.allmovieswithImage">
+          <FunctionImportMapping FunctionImportName="ActorName" FunctionName="imdbfinalModel.Store.ActorName" />
+          <FunctionImportMapping FunctionImportName="addactorandmovie" FunctionName="imdbfinalModel.Store.addactorandmovie" />
+          <FunctionImportMapping FunctionImportName="addActors" FunctionName="imdbfinalModel.Store.addActors" />
+          <FunctionImportMapping FunctionImportName="AddMovies" FunctionName="imdbfinalModel.Store.AddMovies" />
+          <FunctionImportMapping FunctionImportName="addnewmovies" FunctionName="imdbfinalModel.Store.addnewmovies" />
+          <FunctionImportMapping FunctionImportName="addProducers" FunctionName="imdbfinalModel.Store.addProducers" />
+          <FunctionImportMapping FunctionImportName="allmovieswithImage" FunctionName="imdbfinalModel.Store.allmovieswithImage">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="imdb521Model.allmovieswithImage_Result">
+              <ComplexTypeMapping TypeName="imdbfinalModel.allmovieswithImage_Result">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="mov" ColumnName="mov" />
                 <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
@@ -443,12 +511,12 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="deleteMovies" FunctionName="imdb521Model.Store.deleteMovies" />
-          <FunctionImportMapping FunctionImportName="editActorInMovie" FunctionName="imdb521Model.Store.editActorInMovie" />
-          <FunctionImportMapping FunctionImportName="editMovies" FunctionName="imdb521Model.Store.editMovies" />
-          <FunctionImportMapping FunctionImportName="moviedetails" FunctionName="imdb521Model.Store.moviedetails">
+          <FunctionImportMapping FunctionImportName="deleteMovies" FunctionName="imdbfinalModel.Store.deleteMovies" />
+          <FunctionImportMapping FunctionImportName="editActorInMovie" FunctionName="imdbfinalModel.Store.editActorInMovie" />
+          <FunctionImportMapping FunctionImportName="editMovies" FunctionName="imdbfinalModel.Store.editMovies" />
+          <FunctionImportMapping FunctionImportName="moviedetails" FunctionName="imdbfinalModel.Store.moviedetails">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="imdb521Model.moviedetails_Result">
+              <ComplexTypeMapping TypeName="imdbfinalModel.moviedetails_Result">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="movieid" ColumnName="movieid" />
                 <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
@@ -460,9 +528,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="prefilledEdit" FunctionName="imdb521Model.Store.prefilledEdit">
+          <FunctionImportMapping FunctionImportName="prefilledEdit" FunctionName="imdbfinalModel.Store.prefilledEdit">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="imdb521Model.prefilledEdit_Result">
+              <ComplexTypeMapping TypeName="imdbfinalModel.prefilledEdit_Result">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
                 <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
@@ -472,10 +540,10 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ProdName" FunctionName="imdb521Model.Store.ProdName" />
-          <FunctionImportMapping FunctionImportName="producerMovies" FunctionName="imdb521Model.Store.producerMovies">
+          <FunctionImportMapping FunctionImportName="ProdName" FunctionName="imdbfinalModel.Store.ProdName" />
+          <FunctionImportMapping FunctionImportName="producerMovies" FunctionName="imdbfinalModel.Store.producerMovies">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="imdb521Model.producerMovies_Result">
+              <ComplexTypeMapping TypeName="imdbfinalModel.producerMovies_Result">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
                 <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
@@ -483,18 +551,18 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ProducerNames" FunctionName="imdb521Model.Store.ProducerNames">
+          <FunctionImportMapping FunctionImportName="ProducerNames" FunctionName="imdbfinalModel.Store.ProducerNames">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="imdb521Model.ProducerNames_Result">
+              <ComplexTypeMapping TypeName="imdbfinalModel.ProducerNames_Result">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="totalActors" FunctionName="imdb521Model.Store.totalActors" />
-          <FunctionImportMapping FunctionImportName="viewAllActors" FunctionName="imdb521Model.Store.viewAllActors">
+          <FunctionImportMapping FunctionImportName="totalActors" FunctionName="imdbfinalModel.Store.totalActors" />
+          <FunctionImportMapping FunctionImportName="viewAllActors" FunctionName="imdbfinalModel.Store.viewAllActors">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="imdb521Model.viewAllActors_Result">
+              <ComplexTypeMapping TypeName="imdbfinalModel.viewAllActors_Result">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Actor1" ColumnName="Actor1" />
                 <ScalarProperty Name="Sex" ColumnName="Sex" />
@@ -503,9 +571,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="viewAllMovies" FunctionName="imdb521Model.Store.viewAllMovies">
+          <FunctionImportMapping FunctionImportName="viewAllMovies" FunctionName="imdbfinalModel.Store.viewAllMovies">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="imdb521Model.viewAllMovies_Result">
+              <ComplexTypeMapping TypeName="imdbfinalModel.viewAllMovies_Result">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="movieid" ColumnName="movieid" />
                 <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
@@ -516,9 +584,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="viewAllProducers" FunctionName="imdb521Model.Store.viewAllProducers">
+          <FunctionImportMapping FunctionImportName="viewAllProducers" FunctionName="imdbfinalModel.Store.viewAllProducers">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="imdb521Model.viewAllProducers_Result">
+              <ComplexTypeMapping TypeName="imdbfinalModel.viewAllProducers_Result">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ProducersName" ColumnName="ProducersName" />
                 <ScalarProperty Name="Sex" ColumnName="Sex" />
@@ -527,9 +595,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="viewMoviebyActor" FunctionName="imdb521Model.Store.viewMoviebyActor">
+          <FunctionImportMapping FunctionImportName="viewMoviebyActor" FunctionName="imdbfinalModel.Store.viewMoviebyActor">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="imdb521Model.viewMoviebyActor_Result">
+              <ComplexTypeMapping TypeName="imdbfinalModel.viewMoviebyActor_Result">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
                 <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
@@ -538,9 +606,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="viewMoviebyProducer" FunctionName="imdb521Model.Store.viewMoviebyProducer">
+          <FunctionImportMapping FunctionImportName="viewMoviebyProducer" FunctionName="imdbfinalModel.Store.viewMoviebyProducer">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="imdb521Model.viewMoviebyProducer_Result">
+              <ComplexTypeMapping TypeName="imdbfinalModel.viewMoviebyProducer_Result">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="MoviesName" ColumnName="MoviesName" />
                 <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />

@@ -12,7 +12,7 @@ namespace imdb517.Controllers
 {
     public class imdbController : Controller
     {
-        imdb521Entities8 db = new imdb521Entities8();
+        imdbfinalEntities db = new imdbfinalEntities();
         // GET: idmb
         public ActionResult Index()
         {

@@ -8,7 +8,7 @@ namespace imdb517.Controllers
 {
     public class HomeController : Controller
     {
-        imdb521Entities8 db = new imdb521Entities8();
+        imdbfinalEntities db = new imdbfinalEntities();
         public ActionResult Index()
         {
             List<allmovieswithImage_Result> viewAllMovies_Results = db.allmovieswithImage().ToList();

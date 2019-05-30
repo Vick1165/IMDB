@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="imdbfinalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="actorMovie">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="movieid" Type="Int32" />
+    <Property Name="actorid" Type="Int32" />
+    <NavigationProperty Name="updatedActors" Relationship="Self.FK__actorMovi__actor__164452B1" FromRole="actorMovie" ToRole="updatedActors" />
+    <NavigationProperty Name="Movies" Relationship="Self.FK__actorMovi__movie__173876EA" FromRole="actorMovie" ToRole="Movies" />
+  </EntityType>
+  <EntityType Name="Movies">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MoviesName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="YearOfRelease" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Plot" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="producerid" Type="Int32" Nullable="false" />
+    <Property Name="imageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="actorMovie" Relationship="Self.FK__actorMovi__movie__173876EA" FromRole="Movies" ToRole="actorMovie" />
+    <NavigationProperty Name="Producers" Relationship="Self.FK__Movies__producer__182C9B23" FromRole="Movies" ToRole="Producers" />
+  </EntityType>
+  <EntityType Name="Producers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProducersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Sex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DOB" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Movies" Relationship="Self.FK__Movies__producer__182C9B23" FromRole="Producers" ToRole="Movies" />
+  </EntityType>
+  <EntityType Name="updatedActors">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Actor1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Sex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DOB" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="actorMovie" Relationship="Self.FK__actorMovi__actor__164452B1" FromRole="updatedActors" ToRole="actorMovie" />
+  </EntityType>
+  <Association Name="FK__actorMovi__actor__164452B1">
+    <End Role="updatedActors" Type="Self.updatedActors" Multiplicity="0..1" />
+    <End Role="actorMovie" Type="Self.actorMovie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="updatedActors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="actorMovie">
+        <PropertyRef Name="actorid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__actorMovi__movie__173876EA">
+    <End Role="Movies" Type="Self.Movies" Multiplicity="0..1" />
+    <End Role="actorMovie" Type="Self.actorMovie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Movies">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="actorMovie">
+        <PropertyRef Name="movieid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Movies__producer__182C9B23">
+    <End Role="Producers" Type="Self.Producers" Multiplicity="1" />
+    <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Movies">
+        <PropertyRef Name="producerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="imdbfinalEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="actorMovie" EntityType="Self.actorMovie" />
+    <EntitySet Name="Movies" EntityType="Self.Movies" />
+    <EntitySet Name="Producers" EntityType="Self.Producers" />
+    <EntitySet Name="updatedActors" EntityType="Self.updatedActors" />
+    <AssociationSet Name="FK__actorMovi__actor__164452B1" Association="Self.FK__actorMovi__actor__164452B1">
+      <End Role="updatedActors" EntitySet="updatedActors" />
+      <End Role="actorMovie" EntitySet="actorMovie" />
+    </AssociationSet>
+    <AssociationSet Name="FK__actorMovi__movie__173876EA" Association="Self.FK__actorMovi__movie__173876EA">
+      <End Role="Movies" EntitySet="Movies" />
+      <End Role="actorMovie" EntitySet="actorMovie" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Movies__producer__182C9B23" Association="Self.FK__Movies__producer__182C9B23">
+      <End Role="Producers" EntitySet="Producers" />
+      <End Role="Movies" EntitySet="Movies" />
+    </AssociationSet>
+    <FunctionImport Name="actorMovies" ReturnType="Collection(imdbfinalModel.actorMovies_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ActorName" ReturnType="Collection(String)">
+      <Parameter Name="id" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="addactorandmovie">
+      <Parameter Name="movieid" Mode="In" Type="Int32" />
+      <Parameter Name="actorid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="addActors">
+      <Parameter Name="Actor1" Mode="In" Type="String" />
+      <Parameter Name="Sex" Mode="In" Type="String" />
+      <Parameter Name="DOB" Mode="In" Type="String" />
+      <Parameter Name="Bio" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddMovies">
+      <Parameter Name="MoviesName" Mode="In" Type="String" />
+      <Parameter Name="YearOfRelease" Mode="In" Type="DateTime" />
+      <Parameter Name="Plot" Mode="In" Type="String" />
+      <Parameter Name="producerid" Mode="In" Type="Int32" />
+      <Parameter Name="image" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="addnewmovies">
+      <Parameter Name="MoviesName" Mode="In" Type="String" />
+      <Parameter Name="YearOfRelease" Mode="In" Type="String" />
+      <Parameter Name="Plot" Mode="In" Type="String" />
+      <Parameter Name="producerid" Mode="In" Type="Int32" />
+      <Parameter Name="imageUrl" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="addProducers">
+      <Parameter Name="ProducersName" Mode="In" Type="String" />
+      <Parameter Name="Sex" Mode="In" Type="String" />
+      <Parameter Name="DOB" Mode="In" Type="String" />
+      <Parameter Name="Bio" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="allmovieswithImage" ReturnType="Collection(imdbfinalModel.allmovieswithImage_Result)" />
+    <FunctionImport Name="deleteMovies">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="editActorInMovie">
+      <Parameter Name="actorid" Mode="In" Type="Int32" />
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="editMovies">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="MoviesName" Mode="In" Type="String" />
+      <Parameter Name="YearOfRelease" Mode="In" Type="String" />
+      <Parameter Name="Plot" Mode="In" Type="String" />
+      <Parameter Name="ProducersName" Mode="In" Type="Int32" />
+      <Parameter Name="image" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="moviedetails" ReturnType="Collection(imdbfinalModel.moviedetails_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="prefilledEdit" ReturnType="Collection(imdbfinalModel.prefilledEdit_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ProdName" ReturnType="Collection(String)">
+      <Parameter Name="id" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="producerMovies" ReturnType="Collection(imdbfinalModel.producerMovies_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ProducerNames" ReturnType="Collection(imdbfinalModel.ProducerNames_Result)" />
+    <FunctionImport Name="totalActors" ReturnType="Collection(Int32)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="viewAllActors" ReturnType="Collection(imdbfinalModel.viewAllActors_Result)" />
+    <FunctionImport Name="viewAllMovies" ReturnType="Collection(imdbfinalModel.viewAllMovies_Result)" />
+    <FunctionImport Name="viewAllProducers" ReturnType="Collection(imdbfinalModel.viewAllProducers_Result)" />
+    <FunctionImport Name="viewMoviebyActor" ReturnType="Collection(imdbfinalModel.viewMoviebyActor_Result)">
+      <Parameter Name="ActorName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="viewMoviebyProducer" ReturnType="Collection(imdbfinalModel.viewMoviebyProducer_Result)">
+      <Parameter Name="ProducerName" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="actorMovies_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="MoviesName" Nullable="false" />
+    <Property Type="String" Name="YearOfRelease" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="plot" Nullable="false" />
+    <Property Type="String" Name="ProducersName" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="allmovieswithImage_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="mov" Nullable="false" />
+    <Property Type="String" Name="MoviesName" Nullable="false" />
+    <Property Type="String" Name="imageUrl" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="moviedetails_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="movieid" Nullable="false" />
+    <Property Type="String" Name="MoviesName" Nullable="false" />
+    <Property Type="String" Name="YearOfRelease" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="plot" Nullable="false" />
+    <Property Type="String" Name="imageUrl" Nullable="true" />
+    <Property Type="String" Name="Actor1" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="ProducersName" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="prefilledEdit_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="MoviesName" Nullable="false" />
+    <Property Type="String" Name="YearOfRelease" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="Plot" Nullable="false" />
+    <Property Type="Int32" Name="producerid" Nullable="false" />
+    <Property Type="String" Name="imageUrl" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="producerMovies_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="MoviesName" Nullable="false" />
+    <Property Type="String" Name="YearOfRelease" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="Plot" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="ProducerNames_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="ProducersName" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="viewAllActors_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Actor1" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Sex" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="DOB" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Bio" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="viewAllMovies_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="movieid" Nullable="false" />
+    <Property Type="String" Name="MoviesName" Nullable="false" />
+    <Property Type="String" Name="YearOfRelease" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="plot" Nullable="false" />
+    <Property Type="String" Name="Actor1" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="ProducersName" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="viewAllProducers_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="ProducersName" Nullable="true" />
+    <Property Type="String" Name="Sex" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="DOB" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Bio" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="viewMoviebyActor_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="MoviesName" Nullable="false" />
+    <Property Type="String" Name="YearOfRelease" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="plot" Nullable="false" />
+    <Property Type="String" Name="ProducersName" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="viewMoviebyProducer_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="MoviesName" Nullable="false" />
+    <Property Type="String" Name="YearOfRelease" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="plot" Nullable="false" />
+    <Property Type="String" Name="Actor1" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="ProducersName" Nullable="true" />
+  </ComplexType>
+</Schema>

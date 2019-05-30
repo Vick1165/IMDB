@@ -14,6 +14,12 @@ namespace imdb517
     
     public partial class Movies
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Movies()
+        {
+            this.actorMovie = new HashSet<actorMovie>();
+        }
+    
         public int Id { get; set; }
         public string MoviesName { get; set; }
         public string YearOfRelease { get; set; }
@@ -21,6 +27,8 @@ namespace imdb517
         public int producerid { get; set; }
         public string imageUrl { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<actorMovie> actorMovie { get; set; }
         public virtual Producers Producers { get; set; }
     }
 }

@@ -15,10 +15,10 @@ namespace imdb517
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class imdb521Entities8 : DbContext
+    public partial class imdbfinalEntities : DbContext
     {
-        public imdb521Entities8()
-            : base("name=imdb521Entities8")
+        public imdbfinalEntities()
+            : base("name=imdbfinalEntities")
         {
         }
     

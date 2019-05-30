@@ -14,10 +14,19 @@ namespace imdb517
     
     public partial class updatedActors
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public updatedActors()
+        {
+            this.actorMovie = new HashSet<actorMovie>();
+        }
+    
         public int Id { get; set; }
         public string Actor1 { get; set; }
         public string Sex { get; set; }
         public string DOB { get; set; }
         public string Bio { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<actorMovie> actorMovie { get; set; }
     }
 }

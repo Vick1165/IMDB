@@ -17,5 +17,8 @@ namespace imdb517
         public int id { get; set; }
         public Nullable<int> movieid { get; set; }
         public Nullable<int> actorid { get; set; }
+    
+        public virtual updatedActors updatedActors { get; set; }
+        public virtual Movies Movies { get; set; }
     }
 }
