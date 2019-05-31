@@ -9,11 +9,17 @@ namespace imdb517.Models
 {
     public class multi
     {
+        
+        //string nextyear = DateTime.Now.AddYears(1).ToString("MM/dd/yyyy");
+        
 
         public int Id { get; set; }
         [Required(ErrorMessage = "Name is Requirde")]
         [DisplayName("Movie Name")]
         public string MoviesName { get; set; }
+
+
+        [Range(typeof(DateTime), "1/1/1900", "1/1/2020")]
         [Required(ErrorMessage = "Please Select Year")]
         [DisplayName("Year")]
         public Nullable<System.DateTime> YearOfRelease { get; set; }
