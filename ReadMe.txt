@@ -9,3 +9,8 @@ Instructions
 
 
 
+To Add Movies Go to Add tab in  navigation bar
+insert all the feilds and in image url paste image link from google images of that movie
+
+
+

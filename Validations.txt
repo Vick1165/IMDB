@@ -1,0 +1,5 @@
+Validations 
+
+1. Server side Required field Validation
+2. While adding producer and actors the submit button is disabled until all the feilds are filled.
+3. Bootstrap alert message after adding actors and producer.
