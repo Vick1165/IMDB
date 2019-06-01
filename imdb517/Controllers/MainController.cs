@@ -12,9 +12,18 @@ namespace imdb517.Controllers
         imdbfinalEntities db = new imdbfinalEntities();
         public ActionResult Index()
         {
-            List<viewAllMovies_Result> viewAllMovies_Results = db.viewAllMovies().ToList();
-            db.SaveChanges();
-            return View(viewAllMovies_Results);
+            try
+            {
+                List<viewAllMovies_Result> viewAllMovies_Results = db.viewAllMovies().ToList();
+                db.SaveChanges();
+                return View(viewAllMovies_Results);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
     }
 }
