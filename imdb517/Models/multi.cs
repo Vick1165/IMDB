@@ -19,7 +19,7 @@ namespace imdb517.Models
         public string MoviesName { get; set; }
 
 
-        [Range(typeof(DateTime), "1/1/1900", "1/1/2020")]
+        //[Range(typeof(DateTime), "01/01/1900", "01/01/2020")]
         [Required(ErrorMessage = "Please Select Year")]
         [DisplayName("Year")]
         public Nullable<System.DateTime> YearOfRelease { get; set; }
